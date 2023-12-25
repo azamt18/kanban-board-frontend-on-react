@@ -71,7 +71,6 @@ const listsById = (state = {}, action) => {
                     [sourceListId]: { ...state[sourceListId], cards: newCards }
                 };
             }
-
             // Move card from one list to another
             const sourceCards = Array.from(state[sourceListId].cards);
             const [removedCard] = sourceCards.splice(oldCardIndex, 1);

@@ -53,15 +53,6 @@ export default store => {
                 cardText: "Improve UI/UX"
             }
         });
-
-        store.dispatch({
-            type: "ADD_CARD",
-            payload: {
-                listId: secondListId,
-                cardId: shortid.generate(),
-                cardText: "Card 2"
-            }
-        });
     }
 
     /*
