@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+<h1 align="center">Kanban board</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+👉 [View Live](https://65898b67215c8ce7e66c9ba5--sweet-kataifi-de7420.netlify.app/)
 
-## Available Scripts
+![image](https://github.com/azamt18/react-kanban-board/assets/49834815/00228e2a-b84f-46f3-ad38-e9fb89cdc8fb)
 
-In the project directory, you can run:
+[![Netlify Status](https://api.netlify.com/api/v1/badges/89504f0b-8874-4168-99b7-a947753a6d02/deploy-status)](https://app.netlify.com/sites/sweet-kataifi-de7420/deploys)
+![GitHub](https://img.shields.io/github/license/azamt18/react-kanban-board?label=license)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
 
-### `npm start`
+## Features ✨
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Drag & drop tasks
+- CRUD for tasks
+- CRURD for columns
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Development setup 🛠
 
-### `npm test`
+Steps to locally setup development after cloning the project.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Step 1 - Dependencies
 
-### `npm run build`
+You will need:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* [node](https://nodejs.org/)
+* [yarn](https://yarnpkg.com/en/docs/install) (Optional. Not Required if you use NPM)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Please install them if you don't have them already.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Step 2 - Install packages
 
-### `npm run eject`
+If you are using yarn run from the root of the repository:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```sh
+yarn
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you are using npm, run from the root of the repository:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```sh
+npm run install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Step 3 - Run an app
 
-## Learn More
+Once the dependencies are installed, you can run the app:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```sh
+cd react-kanban-board
+yarn start
+# or
+npm start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Your browser should open up to a running app.
 
-### Code Splitting
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Licensed under the MIT license.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+👉 [View Live](https://65898b67215c8ce7e66c9ba5--sweet-kataifi-de7420.netlify.app/)
