@@ -1,4 +1,4 @@
-.List {
+.list {
     background: #bfc9d0;
     flex-shrink: 0;
     width: 272px;
@@ -8,13 +8,13 @@
     border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.List-Title {
+.list-title {
     cursor: pointer;
     padding: 10px;
     overflow-wrap: break-word;
 }
 
-.Toggle-Add-Card {
+.toggle-add-card {
     cursor: pointer;
     padding: 10px;
     color: #0d214d;
@@ -23,12 +23,12 @@
     align-items: center;
 }
 
-.Toggle-Add-Card:hover {
+.toggle-add-card:hover {
     background-color: rgba(9, 45, 66, 0.13);
     color: #17394d;
     text-decoration: underline;
 }
 
-.Toggle-Add-Card ion-icon {
+.toggle-add-card ion-icon {
     margin-right: 2px;
 }

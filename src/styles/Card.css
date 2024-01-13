@@ -1,4 +1,4 @@
-.Card {
+.card {
     position: relative;
     cursor: pointer;
     background: white;
@@ -12,11 +12,11 @@
     min-height: 18px;
 }
 
-.Card:hover {
+.card:hover {
     background: #f5f6f7;
 }
 
-.Card-Icons {
+.card-icons {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -25,7 +25,7 @@
     justify-content: flex-end;
 }
 
-.Card-Icon {
+.card-icon {
     cursor: pointer;
     width: 24px;
     height: 24px;
@@ -39,7 +39,7 @@
     opacity: 0.9;
 }
 
-.Card-Icon:hover {
+.card-icon:hover {
     opacity: 1;
     background: rgba(220, 220, 220, 1);
 }

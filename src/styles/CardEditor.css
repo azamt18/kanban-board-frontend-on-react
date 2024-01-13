@@ -1,14 +1,14 @@
-.Edit-Card .Card {
+.edit-card .card {
     min-height: 50px;
     padding-left: 8px;
     padding-right: 15px;
 }
 
-.Edit-Card .Card:hover {
+.edit-card .card:hover {
     background: white;
 }
 
-.Edit-Card-Textarea {
+.edit-card-textarea {
     width: 100%;
     border: none;
     resize: none;

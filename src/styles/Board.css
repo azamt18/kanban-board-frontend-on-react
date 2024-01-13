@@ -1,16 +1,16 @@
-.Board {
+.board {
     height: 92%;
     display: flex;
     overflow-x: auto;
 }
 
-.Add-List {
+.add-list {
     width: 272px;
     margin: 10px;
     flex-shrink: 0;
 }
 
-.Add-List-Button {
+.add-list-Button {
     background-color: rgba(0, 0, 0, 0.33);
     border-radius: 10px;
     cursor: pointer;
@@ -24,10 +24,10 @@
     height: fit-content;
 }
 
-.Add-List-Button:hover {
+.add-list-Button:hover {
     background-color: rgba(0, 0, 0, 0.55);
 }
 
-.Add-List-Button ion-icon {
+.add-list-Button ion-icon {
     margin-right: 1px;
 }

@@ -1,17 +1,15 @@
 import "./styles/App.css";
 
-import React, { Component } from "react";
+import React from "react";
 import Board from "./components/Board";
 
-class App extends Component {
-  render() {
+const App = () => {
     return (
-        <div className="App">
-          <div className="Header">Kanban board</div>
+        <div className="app">
+            <div className="header">Kanban board</div>
             <Board />
         </div>
-    );
-  }
+    )
 }
 
 export default App;

@@ -1,19 +1,20 @@
 import "../styles/ListEditor.css";
 
-import React, { Component } from "react";
+import React from "react";
 import TextareaAutosize from "react-textarea-autosize";
 
-class ListEditor extends Component {
-    ref = React.createRef();
+const ListEditor = ({ title, handleChangeTitle, deleteList }) => {
 
-    onEnter = e => {
+    const ref = React.createRef();
+
+    const onEnter = e => {
         if (e.keyCode === 13) {
             e.preventDefault();
             this.props.saveList();
         }
     };
 
-    handleClick = e => {
+    const handleClick = e => {
         const node = this.ref.current;
 
         if (node.contains(e.target)) {
@@ -23,32 +24,28 @@ class ListEditor extends Component {
         this.props.onClickOutside();
     };
 
-    componentDidMount() {
-        document.addEventListener("click", this.handleClick, false);
+    function componentDidMount() {
+        document.addEventListener("click", handleClick, false);
     }
 
-    componentWillUnmount() {
-        document.removeEventListener("click", this.handleClick, false);
+    function componentWillUnmount() {
+        document.removeEventListener("click", handleClick, false);
     }
 
-    render() {
-        const { title, handleChangeTitle, deleteList } = this.props;
-
-        return (
-            <div className="List-Title-Edit" ref={this.ref}>
-                <TextareaAutosize
-                    autoFocus
-                    className="List-Title-Textarea"
-                    placeholder="Enter list title..."
-                    value={title}
-                    onChange={handleChangeTitle}
-                    onKeyDown={this.onEnter}
-                    style={{ width: deleteList ? 220 : 245 }}
-                />
-                {deleteList && <ion-icon name="trash" onClick={deleteList} />}
-            </div>
-        );
-    }
+    return (
+        <div className="list-title-edit" ref={ref}>
+            <TextareaAutosize
+                autoFocus
+                className="list-title-textarea"
+                placeholder="Enter list title..."
+                value={title}
+                onChange={handleChangeTitle}
+                onKeyDown={onEnter}
+                style={{ width: deleteList ? 220 : 245 }}
+            />
+            {deleteList && <ion-icon name="trash" onClick={deleteList} />}
+        </div>
+    );
 }
 
 export default ListEditor;

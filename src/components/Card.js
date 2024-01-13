@@ -1,43 +1,47 @@
 import "../styles/Card.css";
 
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import { Draggable } from "react-beautiful-dnd";
 
 import CardEditor from "./CardEditor";
 
-class Card extends Component {
-    state = {
-        hover: false,
-        editing: false
-    };
+const Card = ({listId, cardId, index}) => {
+    // dispatch
+    const dispatch = useDispatch()
 
-    startHover = () => this.setState({ hover: true });
-    endHover = () => this.setState({ hover: false });
+    // selectors
+    const card = useSelector((state) => state.cardsById[cardId])
 
-    startEditing = () =>
-        this.setState({
-            hover: false,
-            editing: true,
-            text: this.props.card.text
-        });
+    // states
+    const [hover, setHover] = useState(false)
+    const [editing, setEditing] = useState(false)
+    const [text, setText] = useState(card.text)
 
-    endEditing = () => this.setState({ hover: false, editing: false });
+    // actions
+    const startHover = () => setHover(true);
+    const endHover = () => setHover(false);
 
-    editCard = async text => {
-        const { card, dispatch } = this.props;
+    const startEditing = () => {
+        setHover(false)
+        setEditing(true)
+        setText(card.text)
+    }
 
-        this.endEditing();
+    const endEditing = () => {
+        setHover(false)
+        setEditing(false)
+    }
 
+    const editCard = async text => {
+        endEditing();
         dispatch({
             type: "CHANGE_CARD_TEXT",
             payload: { cardId: card._id, cardText: text }
         });
     };
 
-    deleteCard = async () => {
-        const { listId, card, dispatch } = this.props;
-
+    const deleteCard = async () => {
         if (window.confirm("Are you sure to delete this card?")) {
             dispatch({
                 type: "DELETE_CARD",
@@ -46,50 +50,48 @@ class Card extends Component {
         }
     };
 
-    render() {
-        const { card, index } = this.props;
-        const { hover, editing } = this.state;
-
-        if (!editing) {
-            return (
-                <Draggable draggableId={card._id} index={index}>
-                    {(provided, snapshot) => (
-                        <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            className="Card"
-                            onMouseEnter={this.startHover}
-                            onMouseLeave={this.endHover}
-                        >
-                            {hover && (
-                                <div className="Card-Icons">
-                                    <div className="Card-Icon" onClick={this.startEditing}>
-                                        <ion-icon name="create" />
-                                    </div>
+    // ui
+    if (!editing) {
+        return (
+            <Draggable draggableId={card._id} index={index}>
+                {(provided, snapshot) => (
+                    <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        className="card"
+                        onMouseEnter={startHover}
+                        onMouseLeave={endHover}
+                    >
+                        {hover && (
+                            <div className="card-icons">
+                                <div className="card-icon" onClick={startEditing}>
+                                    <ion-icon name="create" />
                                 </div>
-                            )}
+                            </div>
+                        )}
 
-                            {card.text}
-                        </div>
-                    )}
-                </Draggable>
-            );
-        } else {
-            return (
-                <CardEditor
-                    text={card.text}
-                    onSave={this.editCard}
-                    onDelete={this.deleteCard}
-                    onCancel={this.endEditing}
-                />
-            );
-        }
+                        {card.text}
+                    </div>
+                )}
+            </Draggable>
+        );
+    } else {
+        return (
+            <CardEditor
+                text={text}
+                onSave={editCard}
+                onDelete={deleteCard}
+                onCancel={endEditing}
+            />
+        );
     }
+
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    card: state.cardsById[ownProps.cardId]
-});
+// const mapStateToProps = (state, ownProps) => ({
+//     card: state.cardsById[ownProps.cardId]
+// });
 
-export default connect(mapStateToProps)(Card);
+export default Card;
+// export default connect(mapStateToProps)(Card);

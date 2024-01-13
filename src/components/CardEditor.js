@@ -1,50 +1,44 @@
 import "../styles/CardEditor.css";
 
-import React, { Component } from "react";
+import React, {useState} from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import EditButtons from "./EditButtons";
 
-class CardEditor extends Component {
-    state = {
-        text: this.props.text || ""
-    };
+const CardEditor = ({text, onSave, onCancel, onDelete, adding}) => {
+    // states
+    const [cardText, setCardText] = useState(text || "")
 
-    handleChangeText = event => this.setState({ text: event.target.value });
+    // actions
+    const handleChangeText = event => setCardText(event.target.value)
 
-    onEnter = e => {
-        const { text } = this.state;
-
+    const onEnter = e => {
         if (e.keyCode === 13) {
             e.preventDefault();
-            this.props.onSave(text);
+            this.props.onSave(cardText);
         }
     };
 
-    render() {
-        const { text } = this.state;
-        const { onSave, onCancel, onDelete, adding } = this.props;
-
-        return (
-            <div className="Edit-Card">
-                <div className="Card">
-                    <TextareaAutosize
-                        autoFocus
-                        className="Edit-Card-Textarea"
-                        placeholder="Enter the text for this card..."
-                        value={text}
-                        onChange={this.handleChangeText}
-                        onKeyDown={this.onEnter}
-                    />
-                </div>
-                <EditButtons
-                    handleSave={() => onSave(text)}
-                    saveLabel={adding ? "Add card" : "Save"}
-                    handleDelete={onDelete}
-                    handleCancel={onCancel}
+    // ui
+    return (
+        <div className="edit-card">
+            <div className="card">
+                <TextareaAutosize
+                    autoFocus
+                    className="edit-card-textarea"
+                    placeholder="Enter the text for this card..."
+                    value={text}
+                    onChange={handleChangeText}
+                    onKeyDown={onEnter}
                 />
             </div>
-        );
-    }
+            <EditButtons
+                handleSave={() => onSave(text)}
+                saveLabel={adding ? "Add card" : "Save"}
+                handleDelete={onDelete}
+                handleCancel={onCancel}
+            />
+        </div>
+    );
 }
 
 export default CardEditor;

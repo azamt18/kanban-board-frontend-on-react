@@ -1,7 +1,7 @@
 import "../styles/List.css";
 
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 
 import Card from "./Card";
@@ -10,20 +10,26 @@ import ListEditor from "./ListEditor";
 
 import shortid from "shortid";
 
-class List extends Component {
-    state = {
-        editingTitle: false,
-        title: this.props.list.title,
-        addingCard: false
-    };
+const List = ({listId, index}) => {
+    // hooks
+    // dispatcher
+    const dispatch = useDispatch()
 
-    toggleAddingCard = () =>
-        this.setState({ addingCard: !this.state.addingCard });
+    // selectors
+    const list = useSelector((state) => state.listsById[listId])
 
-    addCard = async cardText => {
-        const { listId, dispatch } = this.props;
+    // states
+    const [editingTitle, setEditingTitle] = useState(false)
+    const [title, setTitle] = useState(list.title)
+    const [addingCard, setAddingCard] = useState(false)
 
-        this.toggleAddingCard();
+    // actions
+    const toggleAddingCard = () => {
+        setAddingCard(!addingCard)
+    }
+
+    const addCard = async cardText => {
+        toggleAddingCard()
 
         const cardId = shortid.generate();
 
@@ -31,28 +37,26 @@ class List extends Component {
             type: "ADD_CARD",
             payload: { cardText, cardId, listId }
         });
-    };
+    }
 
-    toggleEditingTitle = () =>
-        this.setState({ editingTitle: !this.state.editingTitle });
+    const toggleEditingTitle = () => {
+        setEditingTitle(!editingTitle)
+    }
 
-    handleChangeTitle = e => this.setState({ title: e.target.value });
+    const handleChangeTitle = (event) => {
+        setTitle(event.target.value)
+    }
 
-    editListTitle = async () => {
-        const { listId, dispatch } = this.props;
-        const { title } = this.state;
-
-        this.toggleEditingTitle();
+    const editListTitle = async () => {
+        toggleEditingTitle()
 
         dispatch({
             type: "CHANGE_LIST_TITLE",
             payload: { listId, listTitle: title }
         });
-    };
+    }
 
-    deleteList = async () => {
-        const { listId, list, dispatch } = this.props;
-
+    const deleteList = async () => {
         if (window.confirm("Are you sure to delete this list?")) {
             dispatch({
                 type: "DELETE_LIST",
@@ -61,72 +65,65 @@ class List extends Component {
         }
     };
 
-    render() {
-        const { list, index } = this.props;
-        const { editingTitle, addingCard, title } = this.state;
+    // ui
+    return (
+        <Draggable draggableId={list._id} index={index}>
+            {(provided, snapshot) => (
+                <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    className="list"
+                >
+                    {editingTitle ? (
+                        <ListEditor
+                            list={list}
+                            title={title}
+                            handleChangeTitle={handleChangeTitle}
+                            saveList={editListTitle}
+                            onClickOutside={editListTitle}
+                            deleteList={deleteList}
+                        />
+                    ) : (
+                        <div className="list-title" onClick={toggleEditingTitle}>
+                            {list.title}
+                        </div>
+                    )}
 
-        return (
-            <Draggable draggableId={list._id} index={index}>
-                {(provided, snapshot) => (
-                    <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className="List"
-                    >
-                        {editingTitle ? (
-                            <ListEditor
-                                list={list}
-                                title={title}
-                                handleChangeTitle={this.handleChangeTitle}
-                                saveList={this.editListTitle}
-                                onClickOutside={this.editListTitle}
-                                deleteList={this.deleteList}
-                            />
-                        ) : (
-                            <div className="List-Title" onClick={this.toggleEditingTitle}>
-                                {list.title}
+                    <Droppable droppableId={list._id}>
+                        {(provided, _snapshot) => (
+                            <div ref={provided.innerRef} className="lists-cards">
+                                {list.cards &&
+                                    list.cards.map((cardId, index) => (
+                                        <Card
+                                            key={cardId}
+                                            cardId={cardId}
+                                            index={index}
+                                            listId={list._id}
+                                        />
+                                    ))}
+
+                                {provided.placeholder}
+
+                                {addingCard ? (
+                                    <CardEditor
+                                        onSave={addCard}
+                                        onCancel={toggleAddingCard}
+                                        adding
+                                    />
+                                ) : (
+                                    <div className="toggle-add-card" onClick={toggleAddingCard}>
+                                        <ion-icon name="add" /> Add a card
+                                    </div>
+                                )}
                             </div>
                         )}
-
-                        <Droppable droppableId={list._id}>
-                            {(provided, _snapshot) => (
-                                <div ref={provided.innerRef} className="Lists-Cards">
-                                    {list.cards &&
-                                        list.cards.map((cardId, index) => (
-                                            <Card
-                                                key={cardId}
-                                                cardId={cardId}
-                                                index={index}
-                                                listId={list._id}
-                                            />
-                                        ))}
-
-                                    {provided.placeholder}
-
-                                    {addingCard ? (
-                                        <CardEditor
-                                            onSave={this.addCard}
-                                            onCancel={this.toggleAddingCard}
-                                            adding
-                                        />
-                                    ) : (
-                                        <div className="Toggle-Add-Card" onClick={this.toggleAddingCard}>
-                                            <ion-icon name="add" /> Add a card
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-                        </Droppable>
-                    </div>
-                )}
-            </Draggable>
-        );
-    }
+                    </Droppable>
+                </div>
+            )}
+        </Draggable>
+    )
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    list: state.listsById[ownProps.listId]
-});
-
-export default connect(mapStateToProps)(List);
+// export default connect(mapStateToProps)(List); // connect can reduce performance, instead we can use useSelect
+export default List;

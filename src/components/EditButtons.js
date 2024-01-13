@@ -3,10 +3,10 @@ import "../styles/EditButtons.css";
 import React from "react";
 
 const EditButtons = ({ handleSave, saveLabel, handleDelete, handleCancel }) => (
-    <div className="Edit-Buttons">
+    <div className="edit-buttons">
         <div
             tabIndex="0"
-            className="Edit-Button"
+            className="edit-button"
             style={{ backgroundColor: "#5aac44" }}
             onClick={handleSave}
         >
@@ -15,14 +15,14 @@ const EditButtons = ({ handleSave, saveLabel, handleDelete, handleCancel }) => (
         {handleDelete && (
             <div
                 tabIndex="0"
-                className="Edit-Button"
+                className="edit-button"
                 style={{ backgroundColor: "#EA2525", marginLeft: 0 }}
                 onClick={handleDelete}
             >
                 Delete
             </div>
         )}
-        <div tabIndex="0" className="Edit-Button-Cancel" onClick={handleCancel}>
+        <div tabIndex="0" className="edit-button-cancel" onClick={handleCancel}>
             <ion-icon name="close" />
         </div>
     </div>
