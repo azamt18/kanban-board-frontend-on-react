@@ -6,6 +6,7 @@ import {DragDropContext, Droppable} from "react-beautiful-dnd";
 
 import List from "./List";
 import AddList from "./AddList";
+import * as actionTypes from "../redux/actionTypes";
 
 const Board = ({
     // here can be props
@@ -16,14 +17,13 @@ const Board = ({
     const dispatch = useDispatch()
 
     // selectors
-    const board = useSelector((state) => state.board)
+    const boardLists = useSelector((state) => state.boardReducer.lists)
 
     // state
     const [
         addingList, // get state
         setAddingList // set state(action)
     ] = useState(false)
-
 
 
     const toggleAddingList = () => setAddingList(!addingList);
@@ -37,7 +37,7 @@ const Board = ({
             // Prevent update if nothing has changed
             if (source.index !== destination.index) {
                 dispatch({
-                    type: "MOVE_LIST",
+                    type: actionTypes.MOVE_LIST,
                     payload: {
                         oldListIndex: source.index,
                         newListIndex: destination.index
@@ -53,7 +53,7 @@ const Board = ({
             source.droppableId !== destination.droppableId
         ) {
             dispatch({
-                type: "MOVE_CARD",
+                type: actionTypes.MOVE_CARD,
                 payload: {
                     sourceListId: source.droppableId,
                     destListId: destination.droppableId,
@@ -72,7 +72,7 @@ const Board = ({
             <Droppable droppableId="board" direction="horizontal" type="COLUMN">
                 {(provided, _snapshot) => (
                     <div className="board" ref={provided.innerRef}>
-                        {board.lists.map((listId, index) => {
+                        {boardLists.map((listId, index) => {
                             return <List listId={listId} key={listId} index={index}/>;
                         })}
 
@@ -99,6 +99,6 @@ const Board = ({
 }
 
 // const mapStateToProps = state => ({board: state.board}); // unused
+// export default connect(mapStateToProps)(Board); // connect() function can reduce performance, instead we can use useSelect
 
-// export default connect(mapStateToProps)(Board); // connect can reduce performance, instead we can use useSelect
 export default Board;

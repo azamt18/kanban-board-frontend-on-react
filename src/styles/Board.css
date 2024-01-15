@@ -10,7 +10,7 @@
     flex-shrink: 0;
 }
 
-.add-list-Button {
+.add-list-button {
     background-color: rgba(0, 0, 0, 0.33);
     border-radius: 10px;
     cursor: pointer;
@@ -24,10 +24,10 @@
     height: fit-content;
 }
 
-.add-list-Button:hover {
+.add-list-button:hover {
     background-color: rgba(0, 0, 0, 0.55);
 }
 
-.add-list-Button ion-icon {
+.add-list-button ion-icon {
     margin-right: 1px;
 }

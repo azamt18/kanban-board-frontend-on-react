@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./redux/store";
 
-import * as serviceWorker from "./serviceWorker";
+import * as serviceWorker from "./worker/serviceWorker";
 
 import "./index.css";
 

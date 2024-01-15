@@ -5,6 +5,7 @@ import {useDispatch} from "react-redux";
 import ListEditor from "./ListEditor";
 import shortid from "shortid";
 import EditButtons from "./EditButtons";
+import * as actionTypes from "../redux/actionTypes";
 
 const AddList = ({toggleAddingList}) => {
     // hooks
@@ -20,7 +21,7 @@ const AddList = ({toggleAddingList}) => {
         toggleAddingList();
 
         dispatch({
-            type: "ADD_LIST",
+            type: actionTypes.ADD_LIST,
             payload: { listId: shortid.generate(), listTitle: title }
         });
     }

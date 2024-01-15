@@ -9,14 +9,14 @@ import CardEditor from "./CardEditor";
 import ListEditor from "./ListEditor";
 
 import shortid from "shortid";
+import * as actionTypes from "../redux/actionTypes";
 
 const List = ({listId, index}) => {
-    // hooks
     // dispatcher
     const dispatch = useDispatch()
 
     // selectors
-    const list = useSelector((state) => state.listsById[listId])
+    const list = useSelector((state) => state.listReducer[listId])
 
     // states
     const [editingTitle, setEditingTitle] = useState(false)
@@ -34,7 +34,7 @@ const List = ({listId, index}) => {
         const cardId = shortid.generate();
 
         dispatch({
-            type: "ADD_CARD",
+            type: actionTypes.ADD_CARD,
             payload: { cardText, cardId, listId }
         });
     }
@@ -51,7 +51,7 @@ const List = ({listId, index}) => {
         toggleEditingTitle()
 
         dispatch({
-            type: "CHANGE_LIST_TITLE",
+            type: actionTypes.CHANGE_LIST_TITLE,
             payload: { listId, listTitle: title }
         });
     }
@@ -59,7 +59,7 @@ const List = ({listId, index}) => {
     const deleteList = async () => {
         if (window.confirm("Are you sure to delete this list?")) {
             dispatch({
-                type: "DELETE_LIST",
+                type: actionTypes.DELETE_LIST,
                 payload: {listId, cards: list.cards}
             });
         }

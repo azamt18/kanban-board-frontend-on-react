@@ -5,13 +5,14 @@ import {useDispatch, useSelector} from "react-redux";
 import { Draggable } from "react-beautiful-dnd";
 
 import CardEditor from "./CardEditor";
+import * as actionTypes from "../redux/actionTypes";
 
 const Card = ({listId, cardId, index}) => {
     // dispatch
     const dispatch = useDispatch()
 
     // selectors
-    const card = useSelector((state) => state.cardsById[cardId])
+    const card = useSelector((state) => state.cardReducer[cardId])
 
     // states
     const [hover, setHover] = useState(false)
@@ -25,7 +26,7 @@ const Card = ({listId, cardId, index}) => {
     const startEditing = () => {
         setHover(false)
         setEditing(true)
-        setText(card.text)
+        setText(text)
     }
 
     const endEditing = () => {
@@ -36,7 +37,7 @@ const Card = ({listId, cardId, index}) => {
     const editCard = async text => {
         endEditing();
         dispatch({
-            type: "CHANGE_CARD_TEXT",
+            type: actionTypes.CHANGE_CARD_TEXT,
             payload: { cardId: card._id, cardText: text }
         });
     };
@@ -44,7 +45,7 @@ const Card = ({listId, cardId, index}) => {
     const deleteCard = async () => {
         if (window.confirm("Are you sure to delete this card?")) {
             dispatch({
-                type: "DELETE_CARD",
+                type: actionTypes.DELETE_CARD,
                 payload: { cardId: card._id, listId }
             });
         }
@@ -90,7 +91,7 @@ const Card = ({listId, cardId, index}) => {
 }
 
 // const mapStateToProps = (state, ownProps) => ({
-//     card: state.cardsById[ownProps.cardId]
+//     card: state.cardReducer[ownProps.cardId]
 // });
 
 export default Card;
